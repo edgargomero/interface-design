@@ -1,0 +1,21 @@
+{
+  "name": "design-engineer",
+  "description": "Design engineering for Claude Code. Build interfaces with craft, memory, and enforcement. Maintains consistent design decisions across sessions.",
+  "version": "2.0.0",
+  "author": {
+    "name": "Damola Akinleye",
+    "url": "https://github.com/Dammyjay93"
+  },
+  "repository": "https://github.com/Dammyjay93/design-engineer",
+  "license": "MIT",
+  "keywords": [
+    "design",
+    "design-system",
+    "ui",
+    "craft",
+    "memory",
+    "enforcement",
+    "consistency",
+    "tokens"
+  ]
+}
