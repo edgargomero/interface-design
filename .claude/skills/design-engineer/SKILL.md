@@ -85,6 +85,24 @@ The standard: looks designed by someone who obsesses over details.
 
 ---
 
+# After Completing a Task
+
+When you finish building something, **always offer to save**:
+
+```
+"Want me to save these patterns for future sessions?"
+```
+
+If yes, write to `.design-engineer/system.md`:
+- Direction and feel
+- Depth strategy (borders/shadows/layered)
+- Spacing base unit
+- Key component patterns with specific values
+
+This compounds — each save makes future work faster and more consistent.
+
+---
+
 # Workflow
 
 ## Communication
@@ -110,7 +128,7 @@ Read `.design-engineer/system.md` and apply. Decisions are made.
 1. Assess context — What's the product? Who uses it?
 2. Suggest + ask — State recommendation, get confirmation
 3. Build — Apply principles
-4. Offer to save — "Want me to save these patterns?"
+4. **Offer to save** — Always ask after completing the task
 
 ---
 
