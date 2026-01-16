@@ -3,18 +3,20 @@ name: design-engineer:init
 description: Smart dispatcher - detects mode and builds UI with craft, memory, and enforcement.
 ---
 
-# Design Engineer
+Use the design-engineer skill to establish or apply a design system.
 
-Build interfaces with intention, consistency, and memory. Detects your project context and applies the right approach.
+Start by checking if `.design-engineer/system.md` exists in the current project:
 
-## Smart Dispatcher
+- **If it exists** → You're in APPLY MODE. Read the system and use its established direction and patterns.
+- **If it doesn't exist** → You're in ESTABLISH MODE. Help the user establish a design direction, then offer to save it.
 
-**Check for `.design-engineer/system.md`:**
-- **Exists?** → APPLY MODE (use existing system)
-- **Doesn't exist?** → ESTABLISH MODE (create system) or PRINCIPLES ONLY
+The skill will guide you through:
+1. Assessing context to form a design direction hypothesis
+2. Getting user confirmation with ONE question
+3. Building with quality standards
+4. Offering to save the system for future sessions
 
-## Related Commands
-
-- `/design-engineer:status` → Show current design system state
-- `/design-engineer:audit` → Validate existing code against system
-- `/design-engineer:extract` → Extract patterns from existing code
+Consult the skill's reference files as needed:
+- `references/directions.md` for the 6 design personalities
+- `references/principles.md` for craft quality standards
+- `references/validation.md` for pre-delivery checks
