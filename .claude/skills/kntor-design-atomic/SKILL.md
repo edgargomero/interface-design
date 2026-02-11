@@ -1,11 +1,11 @@
 ---
-name: interface-design
-description: This skill is for interface design — dashboards, admin panels, apps, tools, and interactive products. NOT for marketing design (landing pages, marketing sites, campaigns).
+name: kntor-design-atomic
+description: Atomic Design skill for interface design — dashboards, admin panels, apps, tools, and interactive products. NOT for marketing design (landing pages, marketing sites, campaigns).
 ---
 
-# Interface Design
+# kntor-design-atomic
 
-Build interface design with craft and consistency.
+Build interface design with craft, consistency, and purist Atomic Design.
 
 ## Scope
 
@@ -24,6 +24,56 @@ You can follow the entire process below — explore the domain, name a signature
 This happens because intent lives in prose, but code generation pulls from patterns. The gap between them is where defaults win.
 
 The process below helps. But process alone doesn't guarantee craft. You have to catch yourself.
+
+---
+
+# Atomic Design — The Structural Law
+
+Every interface is a composition hierarchy. This is not optional — it is the structural law of this system.
+
+## The Five Levels
+
+**Tokens** — The subatomic layer. Colors, spacing, typography, shadows. Not visible on their own. They are the DNA that ensures everything shares the same genetic code.
+
+**Atoms** — The smallest indivisible UI elements. A button. An input. A label. A badge. An avatar. An icon. A divider. Each atom is styled by tokens, has its own states (hover, focus, disabled), and cannot be broken into smaller meaningful UI pieces. If you can split it further and both halves still make sense as UI, it's not an atom.
+
+**Molecules** — Simple groups of atoms that function as a unit. A search bar (input + button). A form field (label + input + error message). A stat display (icon + number + label). A nav item (icon + text + badge). Molecules combine atoms with a single, clear purpose. If it has multiple distinct responsibilities, it's not a molecule — it's an organism.
+
+**Organisms** — Complex, distinct sections composed of molecules and atoms. A navigation sidebar. A data table with sort headers and pagination. A form section with multiple fields and actions. A dashboard header with breadcrumbs, search, and user menu. Organisms are self-contained sections of an interface that make sense on their own.
+
+**Templates** — Page-level layouts that define where organisms live. The dashboard template (sidebar + header + content grid). The settings template (sidebar + stacked form sections). The detail template (breadcrumb bar + hero section + tabbed content). Templates are skeletons — they define spatial relationships and proportions, not content.
+
+**Pages** — Specific instances of templates with real data flowing through. The "Team Dashboard" page uses the dashboard template, but now the metrics show real numbers, the table has real rows, the sidebar reflects this user's permissions. Pages are where design meets reality.
+
+## The Composition Rules
+
+These are non-negotiable:
+
+1. **Atoms compose into molecules.** Never skip levels. A button and an input don't become a template — they become a search molecule first.
+
+2. **Molecules compose into organisms.** A form field molecule and a button atom combine into a form organism, not directly into a page.
+
+3. **Organisms fill templates.** Templates define the spatial structure. Organisms occupy those spaces.
+
+4. **Pages instantiate templates.** Templates are abstract. Pages are concrete.
+
+5. **Tokens flow through everything.** Every level consumes tokens. No hardcoded values at any level.
+
+## Why This Matters
+
+Without atomic hierarchy, interfaces grow organically into tangles. A "UserCard" that contains its own button styles, its own spacing, its own colors — disconnected from every other button in the system. Atomic Design prevents this by forcing you to build from the bottom up. The button atom exists once. Every molecule that needs a button uses the same atom. Every organism that needs that molecule gets it. Consistency isn't a goal — it's a structural consequence.
+
+## The Atomic Checkpoint
+
+Before building anything, classify it:
+
+```
+Level: [atom | molecule | organism | template | page]
+Composes: [what lower-level pieces does this use?]
+Used by: [what higher-level pieces will use this?]
+```
+
+If you can't classify it cleanly, your component is doing too much. Split it.
 
 ---
 
@@ -145,6 +195,8 @@ Run these against your output before presenting:
 
 - **The token test:** Read your CSS variables out loud. Do they sound like they belong to this product's world, or could they belong to any project?
 
+- **The atomic test:** Trace any component from page down to atoms. Can you follow the chain cleanly — page → template → organisms → molecules → atoms → tokens? If a component skips a level (an organism that directly hardcodes token values instead of using atoms), the hierarchy is broken. If a molecule is doing organism-level work (multiple distinct responsibilities), it needs splitting.
+
 If any check fails, iterate before showing.
 
 ---
@@ -210,6 +262,8 @@ Your palette should feel like it came FROM somewhere — not like it was applied
 **Every time** you write UI code — even small additions — state:
 
 ```
+Level: [atom | molecule | organism | template | page]
+Composes: [atoms/molecules/organisms this uses]
 Intent: [who is this human, what must they do, how should it feel]
 Palette: [colors from your exploration — and WHY they fit this product's world]
 Depth: [borders / shadows / layered — and WHY this fits the intent]
@@ -218,9 +272,9 @@ Typography: [your typeface — and WHY it fits the intent]
 Spacing: [your base unit]
 ```
 
-This checkpoint is mandatory. It forces you to connect every technical choice back to intent.
+This checkpoint is mandatory. Level and Composes force structural discipline — no monolith components. Intent through Spacing force every technical choice back to intent.
 
-If you can't explain WHY for each choice, you're defaulting. Stop and think.
+If you can't classify the level, the component is doing too much — split it. If you can't explain WHY for each choice, you're defaulting. Stop and think.
 
 ---
 
@@ -338,15 +392,16 @@ Direction: [approach that connects to the above]"
 ```
 
 ## If Project Has system.md
-Read `.interface-design/system.md` and apply. Decisions are made.
+Read `.kntor-design-atomic/system.md` and apply. Decisions are made.
 
 ## If No system.md
 1. Explore domain — Produce all four required outputs
 2. Propose — Direction must reference all four
 3. Confirm — Get user buy-in
-4. Build — Apply principles
-5. **Evaluate** — Run the mandate checks before showing
-6. Offer to save
+4. Inventory — Identify the atomic levels needed (which atoms, molecules, organisms, templates)
+5. Build bottom-up — Atoms first, then molecules, then organisms, then templates, then pages
+6. **Evaluate** — Run the mandate checks (including atomic test) before showing
+7. Offer to save
 
 ---
 
@@ -358,15 +413,18 @@ When you finish building something, **always offer to save**:
 "Want me to save these patterns for future sessions?"
 ```
 
-If yes, write to `.interface-design/system.md`:
+If yes, write to `.kntor-design-atomic/system.md`:
 - Direction and feel
 - Depth strategy (borders/shadows/layered)
 - Spacing base unit
-- Key component patterns
+- Atoms catalog (with measurements and states)
+- Molecules catalog (with composition notes)
+- Organisms catalog (with molecule/atom references)
+- Templates catalog (with organism placement)
 
 ### What to Save
 
-Add patterns when a component is used 2+ times, is reusable across the project, or has specific measurements worth remembering. Don't save one-off components, temporary experiments, or variations better handled with props.
+Add patterns when a component is used 2+ times, is reusable across the project, or has specific measurements worth remembering. Classify every saved pattern by atomic level. Don't save one-off components, temporary experiments, or variations better handled with props. Pages are never saved — they are instances, not patterns.
 
 ### Consistency Checks
 
@@ -379,13 +437,13 @@ This compounds — each save makes future work faster and more consistent.
 # Deep Dives
 
 For more detail on specific topics:
-- `references/principles.md` — Code examples, specific values, dark mode
-- `references/validation.md` — Memory management, when to update system.md
-- `references/critique.md` — Post-build craft critique protocol
+- `references/principles.md` — Atomic composition rules, code examples, specific values, dark mode
+- `references/validation.md` — Memory management, atomic-level pattern tracking, when to update system.md
+- `references/critique.md` — Post-build craft critique protocol (includes atomic composition review)
 
 # Commands
 
-- `/interface-design:status` — Current system state
-- `/interface-design:audit` — Check code against system
-- `/interface-design:extract` — Extract patterns from code
-- `/interface-design:critique` — Critique your build for craft, then rebuild what defaulted
+- `/kntor-design-atomic:status` — Current system state
+- `/kntor-design-atomic:audit` — Check code against system
+- `/kntor-design-atomic:extract` — Extract patterns from code
+- `/kntor-design-atomic:critique` — Critique your build for craft, then rebuild what defaulted

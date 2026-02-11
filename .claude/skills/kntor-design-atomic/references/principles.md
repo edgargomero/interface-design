@@ -4,6 +4,102 @@ These apply regardless of design direction. This is the quality floor.
 
 ---
 
+## Atomic Composition
+
+The structural law of every interface. Components compose upward through strict levels. This is not a suggestion — it is how every piece of UI must be built.
+
+### Level Definitions
+
+**Tokens** (subatomic)
+Design decisions encoded as variables. Colors, spacing, typography scales, shadows, radii. Not components — raw material.
+```
+--color-foreground, --space-4, --radius-sm, --shadow-subtle
+```
+
+**Atoms**
+Single-purpose, indivisible UI elements. Styled exclusively by tokens.
+```
+Button, Input, Label, Badge, Avatar, Icon, Divider, Checkbox, Radio, Toggle, Tag, Tooltip trigger
+```
+Rules:
+- Must have all interaction states (hover, focus, active, disabled)
+- Must accept only token values — no hardcoded colors, spacing, or sizes
+- If you can break it into two meaningful UI pieces, it's not an atom
+
+**Molecules**
+Small groups of atoms with a single responsibility.
+```
+SearchBar = Input + Button
+FormField = Label + Input + ErrorMessage
+StatDisplay = Icon + Number + Label
+NavItem = Icon + Text + Badge
+UserChip = Avatar + Name
+```
+Rules:
+- Combines 2-4 atoms maximum
+- One clear purpose — if you need the word "and" to describe it, consider splitting
+- Internal layout is the molecule's job (how its atoms arrange)
+- Does NOT manage its own state — receives it from organisms or pages
+
+**Organisms**
+Self-contained sections with multiple responsibilities. Built from molecules and atoms.
+```
+Sidebar = Logo + NavItem[] + UserChip
+DataTable = TableHeader + TableRow[] + Pagination
+FormSection = Heading + FormField[] + Button
+DashboardHeader = Breadcrumbs + SearchBar + UserMenu
+```
+Rules:
+- Can compose molecules AND atoms directly (not everything needs the intermediate step)
+- Owns section-level layout and behavior
+- Makes sense in isolation — you could test it standalone
+- Can manage local state (open/closed, selected item, sort order)
+
+**Templates**
+Page-level skeletons that define spatial relationships between organisms.
+```
+DashboardTemplate = Sidebar + Header + ContentGrid
+SettingsTemplate = Sidebar + StackedFormSections
+DetailTemplate = BreadcrumbBar + HeroSection + TabbedContent
+```
+Rules:
+- Define WHERE organisms go, not WHAT they contain
+- Manage proportions (sidebar width, content max-width, gutter sizes)
+- No content — only slots and structure
+- Responsive behavior lives here (how layout adapts to viewport)
+
+**Pages**
+Concrete instances of templates with real data.
+```
+TeamDashboard = DashboardTemplate + real metrics + real table data + this user's sidebar
+```
+Rules:
+- Wire data to organisms
+- Handle page-level state and data fetching
+- The only level where real content appears
+
+### Composition Violations to Catch
+
+- **Atom skip:** An organism that hardcodes button styles instead of using the Button atom
+- **God molecule:** A molecule doing 3+ distinct things — it's an organism in disguise
+- **Fat atom:** An atom that contains layout logic for other atoms — it's a molecule
+- **Phantom template:** A page with layout logic mixed into data logic — extract the template
+- **Token leak:** A molecule or organism with hardcoded hex values instead of token references
+
+### Build Order
+
+Always bottom-up:
+1. Define tokens
+2. Build atoms (consuming tokens)
+3. Compose molecules (from atoms)
+4. Assemble organisms (from molecules + atoms)
+5. Define templates (placing organisms)
+6. Instantiate pages (filling templates with data)
+
+Never start from the page and work backward. That's how monolith components are born.
+
+---
+
 ## Surface & Token Architecture
 
 Professional interfaces don't pick colors randomly — they build systems. Understanding this architecture is the difference between "looks okay" and "feels like a real product."

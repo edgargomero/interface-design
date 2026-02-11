@@ -1,6 +1,6 @@
 # Craft in Action
 
-This shows how the subtle layering principle translates to real decisions. Learn the thinking, not the code. Your values will differ — the approach won't.
+This shows how the subtle layering principle and atomic hierarchy translate to real decisions. Learn the thinking, not the code. Your values will differ — the approach won't.
 
 ---
 
@@ -62,6 +62,62 @@ Focus needs to be visible, but you don't need a glowing ring or dramatic color. 
 
 ---
 
+## Example: Atomic Composition in Practice
+
+### How a Dashboard Page Decomposes
+
+A well-structured dashboard page traces cleanly through every atomic level:
+
+```
+Page: TeamDashboard
+  └─ Template: DashboardTemplate
+       ├─ Organism: Sidebar
+       │    ├─ Atom: Logo
+       │    ├─ Molecule: NavItem × 6
+       │    │    ├─ Atom: Icon
+       │    │    ├─ Atom: Text
+       │    │    └─ Atom: Badge (optional)
+       │    ├─ Atom: Divider
+       │    └─ Molecule: UserChip
+       │         ├─ Atom: Avatar
+       │         └─ Atom: Text (name)
+       ├─ Organism: PageHeader
+       │    ├─ Molecule: Breadcrumbs
+       │    ├─ Atom: Heading
+       │    └─ Atom: Button × 2
+       └─ Organism: MetricsGrid
+            └─ Molecule: StatCard × 4
+                 ├─ Atom: Icon (in circle)
+                 ├─ Atom: Text (value)
+                 ├─ Atom: Text (label)
+                 └─ Atom: Badge (trend)
+```
+
+**What this gives you:**
+
+- Change the Button atom once → every button in every organism updates
+- Swap NavItem molecule's Badge atom for a different indicator → all nav items change
+- Replace DashboardTemplate with a different layout → all organisms still work
+- Test the Sidebar organism in isolation → it renders completely on its own
+
+### The Anti-Pattern
+
+What most first drafts look like — a monolith:
+
+```
+Page: TeamDashboard
+  ├─ <div class="sidebar">  ← inline styles, not an organism
+  │    ├─ <nav> with inline link styles  ← not using NavItem molecule
+  │    └─ <div> with hardcoded avatar  ← not using Avatar atom
+  ├─ <div class="header"> with inline padding  ← not using PageHeader organism
+  └─ <div class="grid">
+       └─ <div class="card"> × 4 with hardcoded hex colors  ← token leak
+```
+
+Same visual result. Completely different structural quality. The monolith works today. The atomic version works forever.
+
+---
+
 ## Adapt to Context
 
 Your product might need:
@@ -70,17 +126,18 @@ Your product might need:
 - Different lightness progression
 - Light mode (principles invert — higher elevation = shadow, not lightness)
 
-**The principle is constant:** barely different, still distinguishable. The values adapt to context.
+**The principle is constant:** barely different, still distinguishable. Build bottom-up, compose strictly. The values adapt to context.
 
 ---
 
 ## The Craft Check
 
-Apply the squint test to your work:
+Apply the squint test and the atomic test to your work:
 
 1. Blur your eyes or step back
 2. Can you still perceive hierarchy?
 3. Is anything jumping out at you?
 4. Can you tell where regions begin and end?
+5. Can you trace any element from page → template → organism → molecule → atom → token?
 
-If hierarchy is visible and nothing is harsh — the subtle layering is working.
+If hierarchy is visible, nothing is harsh, and the composition chain is clean — the system is working.

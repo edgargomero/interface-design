@@ -1,26 +1,23 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "interface-design",
+  "name": "kntor-design-atomic",
   "metadata": {
-    "description": "Design engineering for Claude Code. Build interfaces with craft, memory, and enforcement."
+    "description": "Atomic Design engineering for Claude Code. Build interfaces with craft, memory, and purist atomic composition."
   },
   "owner": {
-    "name": "Damola Akinleye",
-    "url": "https://github.com/Dammyjay93"
+    "name": "kntor"
   },
   "plugins": [
     {
-      "name": "interface-design",
-      "description": "Design engineering for Claude Code. Build interfaces with craft, memory, and enforcement. Maintains consistent design decisions across sessions.",
-      "version": "2026.2.9.1212",
+      "name": "kntor-design-atomic",
+      "description": "Atomic Design engineering for Claude Code. Build interfaces with craft, memory, and purist atomic composition. Tokens → Atoms → Molecules → Organisms → Templates → Pages.",
+      "version": "1.0.0",
       "author": {
-        "name": "Damola Akinleye",
-        "url": "https://github.com/Dammyjay93"
+        "name": "kntor"
       },
       "source": "./",
       "category": "design",
-      "homepage": "https://github.com/Dammyjay93/interface-design",
-      "tags": ["design", "design-system", "ui", "craft", "memory", "enforcement", "consistency", "tokens"]
+      "tags": ["design", "design-system", "ui", "atomic-design", "craft", "memory", "consistency", "tokens"]
     }
   ]
 }

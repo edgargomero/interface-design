@@ -1,81 +1,63 @@
-# Interface Design
+# kntor-design-atomic
 
 <p align="center">
-  <strong>Craft · Memory · Consistency</strong>
+  <strong>Craft &middot; Atomic Design &middot; Memory &middot; Consistency</strong>
 </p>
 
 <p align="center">
-  Build interfaces with intention. Remember decisions across sessions. Maintain systematic consistency.
+  Build interfaces with purist Atomic Design. Tokens &rarr; Atoms &rarr; Molecules &rarr; Organisms &rarr; Templates &rarr; Pages.
 </p>
 
 <p align="center">
-  <em>For interface design — dashboards, apps, tools, admin panels. Not for marketing sites.</em>
+  <em>For interface design &mdash; dashboards, apps, tools, admin panels. Not for marketing sites.</em>
 </p>
 
-<p align="center">
-  <a href="#installation">Install</a> ·
-  <a href="#how-it-works">How It Works</a> ·
-  <a href="https://interface-design.dev/examples.html">Examples</a> ·
-  <a href="https://interface-design.dev">Website</a>
-</p>
+---
+
+## Acknowledgments
+
+This project is a fork of [**interface-design**](https://github.com/Dammyjay93/interface-design) by [Damola Akinleye](https://github.com/Dammyjay93). The original project provides an excellent foundation for building interfaces with craft, memory, and consistency inside Claude Code.
+
+**kntor-design-atomic** extends the original by adapting the entire system to work with **purist Atomic Design methodology** (Brad Frost). All principles, commands, templates, and examples have been restructured around the five atomic levels: Tokens, Atoms, Molecules, Organisms, Templates, and Pages.
+
+Thank you Damola for the craft philosophy and the foundation that made this possible.
 
 ---
 
 ## What This Does
 
-When you build UI with Claude, design decisions get made: spacing values, colors, depth strategy, surface elevation. Without structure, those decisions drift across sessions.
+When you build UI with Claude, design decisions get made: spacing values, colors, depth strategy, surface elevation, component structure. Without structure, those decisions drift across sessions and components become monoliths.
 
-**Interface Design helps you:**
+**kntor-design-atomic helps you:**
 
-1. **Craft** — Principle-based design that produces professional, polished interfaces
-2. **Memory** — Save decisions to `.interface-design/system.md`, load automatically
-3. **Consistency** — Every component follows the same principles throughout the session
-
-Make choices once. Apply them consistently.
+1. **Craft** &mdash; Principle-based design that produces professional, polished interfaces
+2. **Atomic Structure** &mdash; Every component classified by level: atom, molecule, organism, template, page
+3. **Memory** &mdash; Save decisions to `.kntor-design-atomic/system.md`, load automatically
+4. **Consistency** &mdash; Composition flows strictly through the atomic hierarchy
 
 ## Before & After
 
-**Without interface-design:**
-- Every session starts from scratch
-- Button heights drift (36px, 38px, 40px...)
-- Random spacing values (14px, 17px, 22px...)
-- No consistency across components
+**Without atomic design:**
+- Components grow into monoliths with mixed concerns
+- Button styles duplicated across 12 files
+- Page components contain layout, data, and styling all in one
+- No reusability, no consistency
 
-**With interface-design:**
-- System loads automatically each session
-- Patterns reused (Button: 36px, Card: 16px pad)
-- Spacing on grid (4px, 8px, 12px, 16px)
-- Consistent depth and surface treatment throughout
-
-See the difference: **[interface-design.dev/examples.html](https://interface-design.dev/examples.html)**
+**With kntor-design-atomic:**
+- Every component has a clear level (atom, molecule, organism, template, page)
+- Button atom defined once, used everywhere
+- Templates handle layout, organisms handle sections, molecules handle small groups
+- Change an atom and every molecule, organism, and template that uses it updates
 
 ---
 
 ## Installation
 
-### Plugin (Recommended)
+### Manual
 
 ```bash
-# Add the marketplace
-/plugin marketplace add Dammyjay93/interface-design
-
-# Install the plugin
-/plugin menu
-```
-
-Select `interface-design` from the menu. Restart Claude Code after.
-
-Gets you:
-- Principle-based craft for every UI component
-- Automatic system.md loading every session
-- Per-component design checkpoint
-- Commands (/interface-design status, audit, extract)
-
-### Manual (Advanced)
-
-```bash
-git clone https://github.com/Dammyjay93/interface-design.git
-cd interface-design
+git clone https://github.com/kntor/kntor-design-atomic.git
+cd kntor-design-atomic
 cp -r .claude/* ~/.claude/
 cp -r .claude-plugin/* ~/.claude-plugin/
 ```
@@ -86,26 +68,41 @@ Restart Claude Code.
 
 ## How It Works
 
-### The Flow
+### The Atomic Hierarchy
 
-When you build UI with interface-design:
+```
+Tokens      Design variables (colors, spacing, typography, shadows)
+   |
+Atoms       Indivisible elements (Button, Input, Badge, Avatar, Label)
+   |
+Molecules   Small atom groups, 1 job (FormField, SearchBar, NavItem)
+   |
+Organisms   Self-contained sections (Sidebar, DataTable, PageHeader)
+   |
+Templates   Page skeletons (DashboardTemplate, SettingsTemplate)
+   |
+Pages       Concrete instances with real data (TeamDashboard)
+```
+
+### The Flow
 
 **If system.md exists:**
 ```
-✓ Reads skill files and principles
-✓ Loads .interface-design/system.md
-✓ Applies established patterns
-✓ States design choices before each component
-✓ Offers to save new patterns
+1. Reads skill files and principles
+2. Loads .kntor-design-atomic/system.md
+3. Applies established atoms, molecules, organisms, templates
+4. States level + composition before each component
+5. Builds bottom-up
+6. Offers to save new patterns
 ```
 
 **If no system.md:**
 ```
 1. Reads skill files and principles
-2. Assesses project context
-3. Suggests direction, asks for confirmation
-4. States design choices before each component
-5. Builds with consistent principles
+2. Explores product domain
+3. Suggests direction + atomic inventory
+4. Gets confirmation
+5. Builds bottom-up: tokens -> atoms -> molecules -> organisms -> templates -> pages
 6. Offers to save system
 ```
 
@@ -115,54 +112,32 @@ When you build UI with interface-design:
 You: "Build a user dashboard with metrics cards"
 
 Claude:
-This feels like a data-heavy dashboard — I'd suggest:
-- Depth: Borders-only (clean, technical)
-- Surfaces: Subtle elevation shifts
-- Spacing: 8px base
+Domain: operations monitoring, team productivity, delivery velocity
+Color world: slate, steel, signal green, amber warning
+Signature: velocity sparklines embedded in metric atoms
 
-Does this direction fit?
+Direction: Precision & Density, borders-only, cool slate
 
-[You: y]
+Atomic inventory:
+  Atoms: Button, Badge, Avatar, Label, Divider, Icon
+  Molecules: StatDisplay, NavItem, UserChip, SearchBar
+  Organisms: Sidebar, MetricsGrid, PageHeader
+  Template: DashboardTemplate
 
-Depth: borders-only
-Surfaces: 7% → 9% → 11% lightness scale
-Borders: rgba(255,255,255,0.06)
-Spacing: 8px base
-
-[Builds dashboard with consistent depth, spacing, surfaces]
-
-Want me to save these patterns to .interface-design/system.md?
+Does that direction feel right?
 
 [You: y]
 
-✓ System saved
+[Builds tokens, then atoms, then molecules, then organisms, then template, then page]
+
+Want me to save these patterns to .kntor-design-atomic/system.md?
 ```
-
-### Example: Second Session
-
-```
-You: "Add a settings page"
-
-Claude:
-✓ Loaded system.md
-
-Depth: borders-only
-Surfaces: using established scale
-Borders: rgba(255,255,255,0.06)
-Spacing: 8px base
-
-[Builds settings page matching existing system]
-
-Want me to save any new patterns?
-```
-
-The system **remembers** across sessions.
 
 ---
 
 ## System File
 
-After establishing direction, your decisions live in `.interface-design/system.md`:
+After establishing direction, decisions live in `.kntor-design-atomic/system.md`:
 
 ```markdown
 # Design System
@@ -179,33 +154,40 @@ Scale: 4, 8, 12, 16, 24, 32
 
 ### Colors
 --foreground: slate-900
---secondary: slate-600
 --accent: blue-600
 
-## Patterns
-### Button Primary
-- Height: 36px
-- Padding: 12px 16px
-- Radius: 6px
-- Usage: Primary actions
+## Atoms
+### Button
+- Height: 32px
+- Padding: 8px 12px
+- States: default, hover, active, focus, disabled
+- Variants: primary, secondary, ghost
 
-### Card Default
-- Border: 0.5px solid
-- Padding: 16px
-- Radius: 8px
+## Molecules
+### NavItem
+- Composes: Icon + Text + Badge
+- Padding: 6px 12px
+
+## Organisms
+### Sidebar
+- Composes: Logo + NavItem[] + Divider + UserChip
+- Width: 240px
+
+## Templates
+### DashboardTemplate
+- Composes: Sidebar + PageHeader + ContentGrid
 ```
-
-This file loads automatically at session start. Claude sees it and maintains consistency.
 
 ---
 
 ## Commands
 
 ```bash
-/interface-design:init           # Start building with design principles
-/interface-design:status         # Show current system
-/interface-design:audit <path>   # Check code against system
-/interface-design:extract        # Extract patterns from existing code
+/kntor-design-atomic:init           # Start building with Atomic Design
+/kntor-design-atomic:status         # Show current system (tokens, atoms, molecules, organisms, templates)
+/kntor-design-atomic:audit <path>   # Check code against system + atomic composition violations
+/kntor-design-atomic:extract        # Extract patterns from existing code, classified by atomic level
+/kntor-design-atomic:critique       # Critique build for craft + atomic structure, rebuild what defaulted
 ```
 
 ---
@@ -227,51 +209,28 @@ The skill infers direction from project context, but you can customize:
 
 ## Examples
 
-See live examples at **[interface-design.dev/examples.html](https://interface-design.dev/examples.html)**
-
 For system file templates, see `reference/examples/`:
-- **[system-precision.md](reference/examples/system-precision.md)** — Dashboard/admin interfaces
-- **[system-warmth.md](reference/examples/system-warmth.md)** — Collaborative/consumer apps
-
----
-
-## Migration from claude-design-skill
-
-**This repo was renamed from `claude-design-skill`.**
-
-All old URLs redirect automatically.
-
-**If you installed the old skill:**
-
-```bash
-# Uninstall old
-rm -rf ~/.claude/skills/design-principles
-
-# Install new plugin
-/plugin marketplace add Dammyjay93/interface-design
-/plugin menu
-```
-
-Your system.md files (if any) continue to work — just rename `.ds-engineer/` to `.interface-design/`.
+- **[system-precision.md](reference/examples/system-precision.md)** &mdash; Dashboard/admin with full atomic hierarchy
+- **[system-warmth.md](reference/examples/system-warmth.md)** &mdash; Collaborative/consumer with full atomic hierarchy
 
 ---
 
 ## Philosophy
 
-**Decisions compound.** A spacing value chosen once becomes a pattern. A depth strategy becomes an identity.
+**Atomic Design is structural law.** Tokens flow into atoms, atoms compose into molecules, molecules assemble into organisms, organisms fill templates, templates become pages. No level is skipped. No component lives outside the hierarchy.
 
-**Consistency beats perfection.** A coherent system with "imperfect" values beats a scattered interface with "correct" ones.
+**Decisions compound.** A spacing token chosen once shapes every atom. An atom defined once appears in every molecule. Consistency isn't a goal &mdash; it's a structural consequence.
 
-**Memory enables iteration.** When you can see what you decided and why, you can evolve intentionally instead of drifting accidentally.
+**Build bottom-up, always.** Never start from the page and work backward. That's how monolith components are born. Define tokens, build atoms, compose upward.
+
+**Memory enables iteration.** When you can see what you decided and why, organized by atomic level, you can evolve intentionally instead of drifting accidentally.
 
 ---
+
+## Based On
+
+This project builds upon [interface-design](https://github.com/Dammyjay93/interface-design) by [Damola Akinleye](https://github.com/Dammyjay93), licensed under MIT. The original craft philosophy &mdash; intent-first design, subtle layering, the mandate, the checks &mdash; remains the foundation of this project. The Atomic Design adaptation adds structural methodology to that craft.
 
 ## License
 
-MIT — See [LICENSE](LICENSE)
-
----
-
-<p align="center">
-  <a href="https://interface-design.dev">Website</a> · <a href="https://github.com/Dammyjay93/interface-design">GitHub</a>
-</p>
+MIT &mdash; See [LICENSE](LICENSE)

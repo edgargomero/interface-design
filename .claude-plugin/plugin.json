@@ -1,13 +1,10 @@
 {
-  "name": "interface-design",
-  "description": "Design engineering for Claude Code. Build interfaces with craft, memory, and consistency. Maintains design decisions across sessions.",
-  "version": "2026.2.9.1212",
+  "name": "kntor-design-atomic",
+  "description": "Atomic Design engineering for Claude Code. Build interfaces with craft, memory, and consistency using purist Atomic Design methodology.",
+  "version": "1.0.0",
   "author": {
-    "name": "Damola Akinleye",
-    "url": "https://github.com/Dammyjay93"
+    "name": "kntor"
   },
-  "homepage": "https://github.com/Dammyjay93/interface-design",
-  "repository": "https://github.com/Dammyjay93/interface-design",
   "commands": "./.claude/commands",
   "skills": "./.claude/skills"
 }

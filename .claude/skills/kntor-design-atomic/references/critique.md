@@ -24,6 +24,28 @@ Is there a clear focal point? Every screen has one thing the user came here to d
 
 ---
 
+## See the Atomic Structure
+
+This is where structural integrity lives. Trace the hierarchy from page down to tokens.
+
+**Templates** — Does the skeleton hold independently? Could you swap organisms into different positions and the proportions still make sense? If removing one organism collapses everything, your template is coupled to content. Templates should be pure structure.
+
+**Organisms** — Self-contained? Could you render the sidebar, the table, the form section in isolation and they'd look complete? If they depend on parent CSS to look right, they're leaking.
+
+**Molecules** — Single responsibility? A search bar searches. A form field collects one value. A nav item goes to one place. If you need "and" to describe what a molecule does, it's an organism wearing a molecule's name.
+
+**Atoms** — Truly indivisible? A button should look the same everywhere (within its variant). If buttons change shape based on where they sit, the atom is inconsistent. Variants are fine — contextual styling is not.
+
+**Tokens** — Zero leaks? Search for hardcoded hex values, pixel measurements outside the spacing scale, font sizes not in the type scale. Every raw value is a crack in the system.
+
+Common violations to catch:
+- A molecule importing another molecule (they should be siblings in an organism)
+- An atom with internal layout logic for other atoms (that's a molecule)
+- A page file that defines visual styles instead of using templates
+- An organism with hardcoded colors instead of token references
+
+---
+
 ## See the Craft
 
 Move close. Pixel-close.

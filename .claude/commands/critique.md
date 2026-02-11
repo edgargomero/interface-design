@@ -1,6 +1,6 @@
 ---
-name: interface-design:critique
-description: Critique your build for craft, then rebuild what defaulted.
+name: kntor-design-atomic:critique
+description: Critique your build for craft and atomic composition, then rebuild what defaulted.
 ---
 
 # Critique
@@ -22,6 +22,20 @@ Does the layout have rhythm? Great interfaces breathe unevenly — dense tooling
 Are proportions doing work? A 280px sidebar next to full-width content says "navigation serves content." A 360px sidebar says "these are peers." The specific number declares what matters. If you can't articulate what your proportions are saying, they're not saying anything.
 
 Is there a clear focal point? Every screen has one thing the user came here to do. That thing should dominate — through size, position, contrast, or the space around it. When everything competes equally, nothing wins and the interface feels like a parking lot.
+
+## See the Atomic Structure
+
+Trace the hierarchy from page to tokens. This is where structural craft lives or dies.
+
+**Templates:** Does the layout skeleton make sense independently of content? Could you swap organisms into different positions and the template would still hold? If removing one organism breaks the entire layout, the template is too coupled.
+
+**Organisms:** Is each organism self-contained? Could you test the sidebar, the data table, the form section in isolation? If an organism depends on its parent's CSS to look right, it's not truly self-contained.
+
+**Molecules:** Does each molecule have exactly one job? A search bar searches. A form field collects one value. A nav item navigates to one place. If a molecule is doing two things, it's an organism in disguise — split it.
+
+**Atoms:** Are atoms truly atomic? A button is a button everywhere — same height, same padding, same radius, same states. If you have buttons that look different because they're in different contexts (not because they're different variants), the atom isn't consistent.
+
+**Tokens:** Are all visual values traced back to tokens? Search the code for hardcoded hex values, pixel measurements that don't match the spacing scale, font sizes not in the typography scale. Every leaked value is a crack in the system.
 
 ## See the Craft
 
@@ -49,6 +63,8 @@ Open the CSS and find the lies — the places that look right but are held toget
 
 Negative margins undoing a parent's padding. Calc() values that exist only as workarounds. Absolute positioning to escape layout flow. Each is a shortcut where a clean solution exists. Cards with full-width dividers use flex column and section-level padding. Centered content uses max-width with auto margins. The correct answer is always simpler than the hack.
 
+Also check the component structure: are molecules importing other molecules directly? That's a composition violation — they should be composed at the organism level. Is a page component defining inline styles that should be in a template? Extract it.
+
 ## Again
 
 Look at your output one final time.
@@ -62,7 +78,8 @@ The first build was the draft. The critique is the design.
 ## Process
 
 1. Open the file you just built
-2. Walk through each section above: composition, craft, content, structure
+2. Walk through each section above: composition, atomic structure, craft, content, structure
 3. Identify every place you defaulted instead of decided
-4. Rebuild those parts — from the decision, not from a patch
-5. Do not narrate the critique to the user. Do the work. Show the result.
+4. Identify every atomic violation (skipped levels, god molecules, leaked tokens)
+5. Rebuild those parts — from the decision, not from a patch
+6. Do not narrate the critique to the user. Do the work. Show the result.
