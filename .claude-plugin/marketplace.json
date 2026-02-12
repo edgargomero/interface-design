@@ -1,8 +1,8 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "kntor-design-atomic",
+  "name": "kntor-marketplace",
   "metadata": {
-    "description": "Atomic Design engineering for Claude Code. Build interfaces with craft, memory, and purist atomic composition."
+    "description": "Collection of kntor plugins for Claude Code."
   },
   "owner": {
     "name": "kntor"
@@ -15,7 +15,7 @@
       "author": {
         "name": "kntor"
       },
-      "source": "./",
+      "source": "./plugins/kntor-design-atomic/",
       "category": "design",
       "tags": ["design", "design-system", "ui", "atomic-design", "craft", "memory", "consistency", "tokens"]
     }
